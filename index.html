@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="description" content="Create, save, and print professional invoices." />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Quick Invoice</title>
+  </head>
+  <body>
+    <header class="app-header no-print">
+      <a class="brand" href="#"><img src="icons/icon.svg" alt="" />Quick Invoice</a>
+      <div class="actions">
+        <span id="saveStatus" aria-live="polite">Saved locally</span>
+        <button id="newInvoice" class="button secondary" type="button">New</button>
+        <button id="printInvoice" class="button primary" type="button">Print / PDF</button>
+      </div>
+    </header>
+
+    <main class="invoice" id="invoice">
+      <section class="invoice-heading">
+        <div>
+          <label class="eyebrow" for="businessName">From</label>
+          <input id="businessName" class="business-name" value="Your Business" aria-label="Business name" />
+          <textarea id="businessDetails" rows="3" aria-label="Business contact details" placeholder="Address&#10;Email · Phone"></textarea>
+        </div>
+        <div class="invoice-title">
+          <h1>INVOICE</h1>
+          <label>Invoice # <input id="invoiceNumber" value="INV-001" /></label>
+        </div>
+      </section>
+
+      <section class="details-grid">
+        <div>
+          <label class="eyebrow" for="clientName">Bill to</label>
+          <input id="clientName" class="client-name" placeholder="Client name" />
+          <textarea id="clientDetails" rows="3" placeholder="Client address&#10;Email · Phone"></textarea>
+        </div>
+        <div class="dates">
+          <label>Issue date <input id="issueDate" type="date" /></label>
+          <label>Due date <input id="dueDate" type="date" /></label>
+          <label>Currency
+            <select id="currency">
+              <option value="USD">USD — $</option>
+              <option value="EUR">EUR — €</option>
+              <option value="GBP">GBP — £</option>
+              <option value="CAD">CAD — $</option>
+              <option value="AUD">AUD — $</option>
+              <option value="MXN">MXN — $</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="items-section">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Description</th><th>Qty</th><th>Rate</th><th>Amount</th><th class="no-print"></th></tr></thead>
+            <tbody id="items"></tbody>
+          </table>
+        </div>
+        <button id="addItem" class="add-item no-print" type="button">+ Add line item</button>
+      </section>
+
+      <section class="summary-section">
+        <div class="notes">
+          <label class="eyebrow" for="notes">Notes</label>
+          <textarea id="notes" rows="5" placeholder="Thank you for your business!"></textarea>
+        </div>
+        <div class="totals">
+          <div><span>Subtotal</span><strong id="subtotal">$0.00</strong></div>
+          <label><span>Tax (%)</span><input id="taxRate" type="number" min="0" step="0.01" value="0" /></label>
+          <div><span>Tax</span><strong id="taxAmount">$0.00</strong></div>
+          <div class="total"><span>Total</span><strong id="total">$0.00</strong></div>
+        </div>
+      </section>
+    </main>
+
+    <template id="itemTemplate">
+      <tr>
+        <td><input class="item-description" placeholder="Service or product" /></td>
+        <td><input class="item-quantity" type="number" min="0" step="0.01" value="1" aria-label="Quantity" /></td>
+        <td><input class="item-rate" type="number" min="0" step="0.01" value="0" aria-label="Rate" /></td>
+        <td class="item-amount">$0.00</td>
+        <td class="no-print"><button class="remove-item" type="button" aria-label="Remove item">×</button></td>
+      </tr>
+    </template>
+    <script src="app.js" defer></script>
+  </body>
+</html>
